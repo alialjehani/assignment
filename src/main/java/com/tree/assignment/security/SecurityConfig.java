@@ -25,21 +25,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .anyRequest().authenticated()).httpBasic()
-                .and().formLogin(withDefaults())
+                                .and().formLogin(withDefaults())
                 .sessionManagement()
                 .sessionFixation()
                 .newSession()
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(true)
-//                .sessionRegistry(sessionRegistry())
+
                 .and()
                 .invalidSessionUrl("/login")
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true);
-
-
         return http.build();
     }
 
