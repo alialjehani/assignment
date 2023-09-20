@@ -11,31 +11,31 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception e) {
-        log.info("General Error");
+//        log.info("General Error");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("An error occurred. Please try again later.");
     }
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<?> handleUserNotFoundException(UserNotFoundException e) {
-        log.info("User not found");
+//        log.info("User not found");
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("User not found: " + e.getMessage());
     }
     @ExceptionHandler(InvalidRequestException.class)
     public ResponseEntity<?> handleInvalidRequestException(InvalidRequestException e) {
-        log.info("Invalid request");
+//        log.info("Invalid request");
         return ResponseEntity.badRequest()
                 .body("Invalid request: " + e.getMessage());
     }
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException e) {
-        log.info("Access denied");
+//        log.info("Access denied");
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body("Access denied: " + e.getMessage());
     }
     @ExceptionHandler(SessionTimeoutException.class)
     public ResponseEntity<?> handleSessionTimeoutException(SessionTimeoutException e) {
-        log.info("Session timed out");
+//        log.info("Session timed out");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body("Session timed out: " + e.getMessage());
     }

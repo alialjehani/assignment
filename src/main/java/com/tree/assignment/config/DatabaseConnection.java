@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 //    public static Connection getConnection() throws SQLException, ClassNotFoundException {
-//        String url = "jdbc:ucanaccess:///path/to/your/database.accdb";
+//        String url = "jdbc:ucanaccess://C:\\Users/user/Downloads/JavaAssignment/JavaAssignment/accountsdb.accdb";
 //        Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 //        return DriverManager.getConnection(url);
 //    }

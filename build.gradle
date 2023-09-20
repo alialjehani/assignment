@@ -19,12 +19,19 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation group: 'net.sf.ucanaccess', name: 'ucanaccess', version: '4.0.4'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: '2.7.14'
 	implementation 'org.projectlombok:lombok:1.18.26'
-	runtimeOnly 'com.h2database:h2'
+	implementation group: 'com.mchange', name: 'c3p0', version: '0.9.5.3'
 
+//	runtimeOnly 'com.h2database:h2'
 	compileOnly 'javax.servlet:javax.servlet-api:4.0.1' // Use the appropriate version
 
+
+//	compile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: '2.1.2.RELEASE'
+//	compile group: 'com.mchange', name: 'c3p0', version: '0.9.5.3'
 
 }
 
