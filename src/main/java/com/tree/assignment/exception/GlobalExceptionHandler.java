@@ -27,7 +27,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest()
                 .body("Invalid request: " + e.getMessage());
     }
-    // Add more specific exception handlers for your application's custom exceptions.
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException e) {
         log.info("Access denied");
@@ -40,6 +39,5 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body("Session timed out: " + e.getMessage());
     }
-    // You can add more exception handlers for different types of exceptions.
 }
 

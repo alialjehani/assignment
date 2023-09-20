@@ -14,12 +14,12 @@ h2:
 logging:
   level:
     org:
-      springframework : INFO
+      springframework : DEBUG
 
 
 server:
   servlet:
     session:
-      timeout: 60s
+      timeout: 300s
   port: 1111
 

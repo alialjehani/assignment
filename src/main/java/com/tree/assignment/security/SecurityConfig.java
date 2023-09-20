@@ -26,14 +26,12 @@ public class SecurityConfig {
                         authorizeRequests
                                 .anyRequest().authenticated()).httpBasic()
                 .and().formLogin(withDefaults())
-
                 .sessionManagement()
                 .sessionFixation()
                 .newSession()
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(true)
 //                .sessionRegistry(sessionRegistry())
-
                 .and()
                 .invalidSessionUrl("/login")
                 .and()
@@ -69,8 +67,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public static ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
-        return new ServletListenerRegistrationBean<>(new HttpSessionEventPublisher());
+    public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
     }
 
 }
