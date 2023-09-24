@@ -19,8 +19,7 @@ public class Statement {
     private Long id;
     private String accountId;
     private Date datefield;
-    private BigDecimal amount;
-    // Generate getter and setter methods for the fields
+    private String amount;
     public Long getId() {
         return id;
     }
@@ -45,11 +44,11 @@ public class Statement {
         this.datefield = datefield;
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 }

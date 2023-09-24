@@ -21,8 +21,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("User not found: " + e.getMessage());
     }
-    @ExceptionHandler(InvalidRequestException.class)
-    public ResponseEntity<?> handleInvalidRequestException(InvalidRequestException e) {
+    @ExceptionHandler(BusinessValidationException.class)
+    public ResponseEntity<?> handleInvalidRequestException(BusinessValidationException e) {
 //        log.info("Invalid request");
         return ResponseEntity.badRequest()
                 .body("Invalid request: " + e.getMessage());

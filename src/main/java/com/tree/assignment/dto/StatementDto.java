@@ -9,39 +9,39 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class StatementDto {
-    private Long id;
-    private String accountId;
-    private Date datefield;
-    private BigDecimal amount;
-    public Long getId() {
+    private long id;
+    private double accountId;
+    private String datefield;
+    private String amount;
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getAccountId() {
+    public double getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(String accountId) {
+    public void setAccountId(double accountId) {
         this.accountId = accountId;
     }
 
-    public Date getDatefield() {
+    public String getDatefield() {
         return datefield;
     }
 
-    public void setDatefield(Date datefield) {
+    public void setDatefield(String datefield) {
         this.datefield = datefield;
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 }

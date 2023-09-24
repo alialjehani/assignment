@@ -10,8 +10,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+
+import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -21,10 +24,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .anyRequest().authenticated()).httpBasic()
+                                .anyRequest().authenticated())
+                                .httpBasic()
                                 .and().formLogin(withDefaults())
+                .httpBasic().authenticationEntryPoint(authenticationEntryPoint())
+                .and()
                 .sessionManagement()
                 .sessionFixation()
                 .newSession()
@@ -66,5 +73,13 @@ public class SecurityConfig {
         return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
     }
 
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, authException) -> {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"message\": \"Not authorized\"}");
+        };
+    }
 }
 

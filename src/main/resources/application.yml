@@ -4,14 +4,9 @@ spring:
     url: jdbc:ucanaccess://C:\Users/user/Downloads/JavaAssignment/JavaAssignment/accountsdb.accdb
 
   jpa:
+    open-in-view: false
     properties:
       hibernate:
-        naming:
-          physical-strategy: com.tree.assignment.config.AccessPhysicalNamingStrategy
-        hbm2ddl:
-          auto: none
-        tmp:
-          use_jdbc_metadata_defaults: false
         ddl-auto: validate
         dialect: net.ucanaccess.hibernate.dialect.UCanAccessDialect
 
