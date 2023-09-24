@@ -1,16 +1,18 @@
 # assignment
 -run the application
 -run any API client interface
--open new POST request 
--choose Basic Authrization 
--enter admin or user credintials
+-open a new POST request 
+-choose Basic Authorization 
+-enter admin or user credentials
 userRequestExample:
-   {
-   "accountId":"4"
-   }
+{
+    "accountId": "4"
+}
 
 
 adminRequestExample:
-   {
-    "accountId":"4"
-    "
+ {
+    "accountId": "4",
+    "fromDate": "09.01.2023",
+    "toDate":"09.08.2023"
+}
