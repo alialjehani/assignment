@@ -1,7 +1,7 @@
 # assignment
 -run the application
 -run any API client interface
--open a new POST request 
+-open a new POST request [localhost:1111/api/statements]
 -choose Basic Authorization 
 -enter admin or user credentials
 userRequestExample:
