@@ -2,12 +2,12 @@ package com.tree.assignment.service;
 
 import com.tree.assignment.dto.RequestDto;
 import com.tree.assignment.dto.StatementDto;
-import com.tree.assignment.exception.AccessDeniedException;
 import com.tree.assignment.exception.BusinessValidationException;
 import com.tree.assignment.repository.StatementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,38 +26,51 @@ public class StatementService {
     public List<StatementDto> getStatements(RequestDto requestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (isAdmin(authentication)) {
-            return fetchStatementsForAdmin(requestDto);}
-        if (isUser(authentication)) {
-                return fetchStatementsForUser(requestDto);}
-        else {
-            throw new AccessDeniedException("Not Authorized!");
+            return fetchStatementsForAdmin(requestDto);
         }
+        if (isUser(authentication)) {
+                return fetchStatementsForUser(requestDto);
+        }
+        return null;
     }
 
     private List<StatementDto> fetchStatementsForAdmin(RequestDto requestDto) {
         if (requestDto.getAccountId() == null) {
             throw new BusinessValidationException("accountId cannot be null");
         }
+
         List<Map<String, Object>> statements = statementRepository.fetchStatementsForAdmin(requestDto);
-        List<StatementDto> statementsResponse = statements.stream()
+
+        return statements.stream()
                 .filter(statement -> {
                     String dateText = (String) statement.get("datefield");
                     LocalDate statementDate = LocalDate.parse(dateText, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-                    return statementDate.isAfter(requestDto.getFromDate()) && !statementDate.isAfter(requestDto.getToDate());
+                    if (requestDto.getFromDate() != null && requestDto.getToDate() != null) {
+                        LocalDate fromDate = LocalDate.parse(requestDto.getFromDate(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                        LocalDate toDate = LocalDate.parse(requestDto.getToDate(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                        return statementDate.isAfter(fromDate) && !statementDate.isAfter(toDate);
+                    } else if (requestDto.getFromDate() != null) {
+                        LocalDate fromDate = LocalDate.parse(requestDto.getFromDate(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                        return statementDate.isEqual(fromDate) || statementDate.isAfter(fromDate);
+                    } else if (requestDto.getToDate() != null) {
+                        LocalDate toDate = LocalDate.parse(requestDto.getToDate(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                        return statementDate.isEqual(toDate) || !statementDate.isAfter(toDate);
+                    }
+                    return true; // Return all statements if no date filtering criteria are provided
                 })
-                .map(statement -> {
-                    StatementDto statementDto = new StatementDto();
-                    statementDto.setId((Integer) statement.get("id"));
-                    statementDto.setAccountId((Double) statement.get("accountId"));
-                    statementDto.setDatefield((String) statement.get("datefield"));
-                    // Parse the "amount" string into a BigDecimal
-                    String amount = (String) statement.get("amount");
-                    statementDto.setAmount(amount);
-                    return statementDto;
-                })
-                .collect(Collectors.toList());
-        return statementsResponse;
+            .map(statement -> {
+                StatementDto statementDto = new StatementDto();
+                statementDto.setId((Integer) statement.get("id"));
+                statementDto.setAccountId((Double) statement.get("accountId"));
+                statementDto.setDatefield((String)statement.get("datefield"));
+                // Parse the "amount" string into a BigDecimal
+                String amount = (String) statement.get("amount");
+                statementDto.setAmount(amount);
+                return statementDto;
+            })
+            .collect(Collectors.toList());
     }
+
 
     private List<StatementDto> fetchStatementsForUser(RequestDto requestDto) {
         if (requestDto.getAccountId() == null) {

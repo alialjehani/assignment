@@ -10,30 +10,13 @@ spring:
         ddl-auto: validate
         dialect: net.ucanaccess.hibernate.dialect.UCanAccessDialect
 
-
-
-
-# H2 console configuration (optional)
-#h2:
-#  console:
-#    enabled: true
-#  datasource:
-#    driverClassName: org.h2.Driver
-#    url: jdbc:h2:mem:testdb
-#    username: sa
-#    password: password
-#  web:
-#    allowed-origins: "*" # Configure this based on your security requirements
-
 logging:
   level:
     org:
       springframework : DEBUG
-
 
 server:
   servlet:
     session:
       timeout: 300s
   port: 1111
-

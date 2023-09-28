@@ -1,46 +1,37 @@
 package com.tree.assignment.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
-
 
 @AllArgsConstructor
 @Getter
 @Setter
 public class RequestDto {
     private String accountId;
-    @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDate fromDate;
-    @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDate toDate;
+    private String fromDate;
+    private String toDate;
     private BigDecimal minAmount;
     private BigDecimal maxAmount;
 
     public String getAccountId() {
         return accountId;
     }
-
     public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
+        this.accountId = accountId;}
 
-    public LocalDate getFromDate() {
+    public String getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(LocalDate fromDate) {
+    public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
     }
 
-    public LocalDate getToDate() {
+    public String getToDate() {
         return toDate;
     }
 
-    public void setToDate(LocalDate toDate) {
+    public void setToDate(String toDate) {
         this.toDate = toDate;
     }
 

@@ -3,7 +3,9 @@ package com.tree.assignment.controller;
 import com.tree.assignment.dto.RequestDto;
 import com.tree.assignment.dto.StatementDto;
 import com.tree.assignment.service.StatementService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -21,6 +23,5 @@ public class StatementController {
         // Create a DTO to control what is exposed in the response.
         // Example: StatementDTO statementDTO = mapToStatementDTO(statements);
         return statementService.getStatements(requestDto);
-
     }
 }

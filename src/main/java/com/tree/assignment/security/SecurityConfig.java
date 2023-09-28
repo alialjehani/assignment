@@ -31,6 +31,7 @@ public class SecurityConfig {
                                 .httpBasic()
                                 .and().formLogin(withDefaults())
                 .httpBasic().authenticationEntryPoint(authenticationEntryPoint())
+
                 .and()
                 .sessionManagement()
                 .sessionFixation()
